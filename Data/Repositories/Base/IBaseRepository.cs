@@ -1,10 +1,5 @@
 ﻿using Data.Common;
-using Data.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repositories.Base
 {
@@ -14,7 +9,7 @@ namespace Data.Repositories.Base
 
         public IEnumerable<IBaseDataEntity<T>> GetAll();
 
-        public IBaseDataEntity<T> Get(T id);
+        public IBaseDataEntity<T> GetById(T id);
 
         public void Update(IBaseDataEntity<T> entity);
 

@@ -1,15 +1,14 @@
 ﻿using Data.Common;
 using Data.Entities;
 using Data.Repositories.Base;
+using Data.Repositories.Intrefaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repositories.Classes
 {
-    public class EffectsRepository : IBaseRepository<int>
+    public class EffectsRepository : IEffectsRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -26,13 +25,13 @@ namespace Data.Repositories.Classes
 
         public void Delete(int id)
         {
-            EffectsDataEntity entity = this.Get(id) as EffectsDataEntity;
+            EffectsDataEntity entity = this.GetById(id) as EffectsDataEntity;
             entity.IsDeleted = true;
             entity.DeletedOn = DateTime.Now;
             this.Update(entity);
         }
 
-        public IBaseDataEntity<int> Get(int id)
+        public IBaseDataEntity<int> GetById(int id)
         {
             return this._context.Effects.Find(id);
         }

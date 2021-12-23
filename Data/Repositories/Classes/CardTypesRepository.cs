@@ -1,15 +1,14 @@
 ﻿using Data.Common;
 using Data.Entities;
 using Data.Repositories.Base;
+using Data.Repositories.Intrefaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repositories.Classes
 {
-    public class CardTypesRepository : IBaseRepository<int>
+    public class CardTypesRepository : ICardTypesRepository
     {
 
         private readonly ApplicationDbContext _context;
@@ -27,13 +26,13 @@ namespace Data.Repositories.Classes
 
         public void Delete(int id)
         {
-            CardTypesDataEntity cardType = this.Get(id) as CardTypesDataEntity;
+            CardTypesDataEntity cardType = this.GetById(id) as CardTypesDataEntity;
             cardType.IsDeleted = true;
             cardType.DeletedOn = DateTime.Now;
             this.Update(cardType);
         }
 
-        public IBaseDataEntity<int> Get(int id)
+        public IBaseDataEntity<int> GetById(int id)
         {
             return this._context.CardTypes.Find(id);
         }

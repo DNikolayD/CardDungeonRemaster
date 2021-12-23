@@ -2,16 +2,16 @@ using Data;
 using Data.Entities;
 using Data.Repositories.Base;
 using Data.Repositories.Classes;
+using Data.Repositories.Intrefaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Linq;
+using Service.Classes;
+using Service.Interfaces;
 
 namespace CardDungeonRemaster.Server
 {
@@ -47,12 +47,19 @@ namespace CardDungeonRemaster.Server
             services.AddRazorPages();
             services.AddSignalR();
 
-            services.AddSingleton<IBaseRepository<string>, CardsRepository>();
-            services.AddSingleton<IBaseRepository<int>, CardTypesRepository>();
-            services.AddSingleton<IBaseRepository<string>, DecksRepository>();
-            services.AddSingleton<IBaseRepository<int>, DeckTypesRepository>();
-            services.AddSingleton<IBaseRepository<int>, EffectsRepository>();
-            services.AddSingleton<IBaseRepository<int>, EffectTypesRepository>();
+            services.AddSingleton<ICardsRepository, CardsRepository>();
+            services.AddSingleton<ICardTypesRepository, CardTypesRepository>();
+            services.AddSingleton<IDecksRepository, DecksRepository>();
+            services.AddSingleton<IDeckTypesRepository, DeckTypesRepository>();
+            services.AddSingleton<IEffectsRepository, EffectsRepository>();
+            services.AddSingleton<IEffectTypesRepository, EffectTypesRepository>();
+
+            services.AddTransient<ICardsService, CardsService>();
+            services.AddTransient<ICardTypesService, CardTypesService>();
+            services.AddTransient<IEffectsService, EffectsService>();
+            services.AddTransient<IEffectTypesService, EffectTypesService>();
+            services.AddTransient<IDecksService, DecksService>();
+            services.AddTransient<IDeckTypesService, DeckTypesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

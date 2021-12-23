@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Data.csproj" />
+    <ProjectReference Include="..\..\Service\Service.csproj" />
     <ProjectReference Include="..\Client\CardDungeonRemaster.Client.csproj" />
     <ProjectReference Include="..\Shared\CardDungeonRemaster.Shared.csproj" />
   </ItemGroup>

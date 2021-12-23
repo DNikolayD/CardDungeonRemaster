@@ -1,9 +1,6 @@
 ﻿using Data.Common;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Entities
 {
@@ -12,7 +9,7 @@ namespace Data.Entities
         public DecksDataEntity() : base()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.Cards = new HashSet<CardsDataEntity>();
+            this.Cards = new List<CardsDataEntity>();
         }
 
         public string Name { get; init; }
