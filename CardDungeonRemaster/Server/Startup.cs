@@ -1,8 +1,13 @@
+using Autofac.Core;
 using Data;
-using Data.Entities;
+using Data.Entities.User;
 using Data.Repositories.Base;
 using Data.Repositories.Classes;
+using Data.Repositories.Classes.Cards;
+using Data.Repositories.Classes.Posts;
 using Data.Repositories.Intrefaces;
+using Data.Repositories.Intrefaces.Cards;
+using Data.Repositories.Intrefaces.Posts;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Service.Classes;
 using Service.Interfaces;
+using static Humanizer.In;
 
 namespace CardDungeonRemaster.Server
 {
@@ -40,6 +46,8 @@ namespace CardDungeonRemaster.Server
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
+            services.AddIdentity<ApplicationUser, ApplicationRole>();
+
             services.AddAuthentication()
                 .AddIdentityServerJwt();
 
@@ -53,6 +61,10 @@ namespace CardDungeonRemaster.Server
             services.AddSingleton<IDeckTypesRepository, DeckTypesRepository>();
             services.AddSingleton<IEffectsRepository, EffectsRepository>();
             services.AddSingleton<IEffectTypesRepository, EffectTypesRepository>();
+            services.AddSingleton<IImagesRepository, ImagesRepository>();
+            services.AddSingleton<ICategoriesRepository, CategoriesRepository>();
+            services.AddSingleton<IPostsRepository, PostsRepository>();
+            services.AddSingleton<ICommentsRepository, CommentsRepository>();
 
             services.AddTransient<ICardsService, CardsService>();
             services.AddTransient<ICardTypesService, CardTypesService>();
@@ -60,6 +72,8 @@ namespace CardDungeonRemaster.Server
             services.AddTransient<IEffectTypesService, EffectTypesService>();
             services.AddTransient<IDecksService, DecksService>();
             services.AddTransient<IDeckTypesService, DeckTypesService>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

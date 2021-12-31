@@ -1,4 +1,4 @@
-﻿using Data.Common;
+﻿using Data.Entities.Common;
 using System.Collections.Generic;
 
 namespace Data.Repositories.Base

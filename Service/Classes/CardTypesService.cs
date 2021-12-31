@@ -1,6 +1,6 @@
 ﻿using Data.Entities;
-using Data.Repositories.Classes;
-using Data.Repositories.Intrefaces;
+using Data.Repositories.Classes.Cards;
+using Data.Repositories.Intrefaces.Cards;
 using Service.Common;
 using Service.DTOs;
 using Service.Interfaces;

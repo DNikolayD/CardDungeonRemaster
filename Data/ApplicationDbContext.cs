@@ -1,4 +1,7 @@
 ﻿using Data.Entities;
+using Data.Entities.Common;
+using Data.Entities.Forum;
+using Data.Entities.User;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
@@ -14,16 +17,25 @@ namespace Data
         {
         }
 
-        public DbSet<CardsDataEntity> Cards { get; set; }
+        public DbSet<CardsDataEntity> Cards { get; init; }
 
-        public DbSet<CardTypesDataEntity> CardTypes { get; set; }
+        public DbSet<CardTypesDataEntity> CardTypes { get; init; }
 
-        public DbSet<DecksDataEntity> Decks { get; set; }
+        public DbSet<DecksDataEntity> Decks { get; init; }
 
-        public DbSet<DeckTypesDataEntity> DeckTypes { get; set; }
+        public DbSet<DeckTypesDataEntity> DeckTypes { get;  init; }
 
-        public DbSet<EffectsDataEntity> Effects { get; set; }
+        public DbSet<EffectsDataEntity> Effects { get; init; }
 
-        public DbSet<EffectTypesDataEntity> EffectTypes { get; set; }
+        public DbSet<EffectTypesDataEntity> EffectTypes { get; init; }
+
+        public DbSet<CategoriesDataEntity> Categories { get; init; }
+
+        public DbSet<PostsDataEntity> Posts { get; init; }
+
+        public DbSet<CommentsDataEntity> Comments { get; init; }
+
+        public DbSet<ImagesDataEntity> Images { get; init; }
+
     }
 }

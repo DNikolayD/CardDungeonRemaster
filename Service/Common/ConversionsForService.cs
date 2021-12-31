@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Service.Common
 {
+
+    //more relaiable then auto-mapper
+
     public static class ConversionsForService
     {
         public static CardsDataEntity GetCardsDataEntity (this CardsDto cardDto)
@@ -24,7 +27,7 @@ namespace Service.Common
                 IsDeleted = cardDto.IsDeleted,
                 IsEdited = cardDto.IsEdited,
                 Type = cardDto.CardType.GetCardTypesDataEntity(),
-
+                
             };
         }
 

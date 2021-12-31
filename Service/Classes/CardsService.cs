@@ -1,15 +1,14 @@
 ﻿using Data.Entities;
 using Data.Repositories.Base;
-using Data.Repositories.Classes;
-using Data.Repositories.Intrefaces;
+using Data.Repositories.Classes.Cards;
+using Data.Repositories.Intrefaces.Cards;
 using Service.Common;
 using Service.DTOs;
 using Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Service.Classes
 {

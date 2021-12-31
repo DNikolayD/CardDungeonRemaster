@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardDungeonRemaster.Shared"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{ACCA0723-871E-4A4E-A621-716AA6D16625}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{CFDC33F4-A2C8-4B98-8A4E-8BE97EC7DC22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{CFDC33F4-A2C8-4B98-8A4E-8BE97EC7DC22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataConstraints", "DataConstraints\DataConstraints.csproj", "{DB888702-6E4F-4277-820C-2EB8F96E9923}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{CFDC33F4-A2C8-4B98-8A4E-8BE97EC7DC22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFDC33F4-A2C8-4B98-8A4E-8BE97EC7DC22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFDC33F4-A2C8-4B98-8A4E-8BE97EC7DC22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB888702-6E4F-4277-820C-2EB8F96E9923}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB888702-6E4F-4277-820C-2EB8F96E9923}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB888702-6E4F-4277-820C-2EB8F96E9923}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB888702-6E4F-4277-820C-2EB8F96E9923}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
