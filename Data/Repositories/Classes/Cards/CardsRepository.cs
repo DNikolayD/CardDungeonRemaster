@@ -2,6 +2,7 @@
 using Data.Entities.Common;
 using Data.Repositories.Base;
 using Data.Repositories.Intrefaces.Cards;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;

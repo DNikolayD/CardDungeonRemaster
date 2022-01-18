@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service.Interfaces
+namespace Service.Interfaces.Cards
 {
     public interface IDecksService
     {
@@ -28,6 +28,12 @@ namespace Service.Interfaces
         public IEnumerable<DecksDto> GetDecksOrderdByNameAssending();
 
         public IEnumerable<DecksDto> GetDecksWithTheName(string name);
+
+        public IEnumerable<DecksDto> GetDecksByDate(DateTime date);
+
+        public IEnumerable<DecksDto> GetDecksAscendingByDate();
+
+        public IEnumerable<DecksDto> GetDecksDescendingByDate();
 
         public void Create(DecksDto deck);
 

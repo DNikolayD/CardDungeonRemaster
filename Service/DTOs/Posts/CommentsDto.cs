@@ -1,5 +1,5 @@
-﻿using Data.Entities.Common;
-using Data.Entities.User;
+﻿using Service.Common;
+using Service.DTOs.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,14 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using static DataConstraints.CommentsConstraints;
 
-namespace Data.Entities.Forum
+namespace Service.DTOs.Posts
 {
-    public class CommentsDataEntity : BaseDataEntity<int>
+    public class CommentsDto : BaseDto<int>
     {
 
-        public CommentsDataEntity()
+        public CommentsDto()
         {
-            this.Images = new HashSet<ImagesDataEntity>();
+
         }
 
         [Required]
@@ -26,11 +26,9 @@ namespace Data.Entities.Forum
 
         public int Dislikes { get; set; }
 
+        public virtual IEnumerable<ImagesDto> Images { get; set; }
+
         [Required]
-        public string CreatorId { get; set; }
-
-        public virtual ApplicationUser Creator { get; set; }
-
-        public virtual IEnumerable<ImagesDataEntity> Images { get; set; }
+        public virtual UserDto Creator { get; set; }
     }
 }

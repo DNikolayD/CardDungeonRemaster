@@ -4,7 +4,7 @@ namespace Data.Entities.Common
 {
     public interface IBaseDataEntity<T>
     {
-        public T Id { get; init; }
+        public T Id { get; set; }
 
         public DateTime CreatedOn { get; init; }
 

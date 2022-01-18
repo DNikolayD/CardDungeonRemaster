@@ -1,9 +1,10 @@
-﻿using Data.Entities;
+﻿using AutoMapper;
+using Data.Entities;
 using Data.Repositories.Classes.Cards;
 using Data.Repositories.Intrefaces.Cards;
 using Service.Common;
 using Service.DTOs;
-using Service.Interfaces;
+using Service.Interfaces.Cards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +17,18 @@ namespace Service.Classes
     {
 
         private readonly IEffectsRepository _repository;
+        private readonly IMapper _mapper;
 
-        public EffectsService(EffectsRepository repository)
+        public EffectsService(EffectsRepository repository,
+                              Mapper mapper)
         {
             this._repository = repository;
+            this._mapper = mapper;
         }
 
         public void Create(EffectsDto effect)
         {
-            this._repository.Create(effect.GetEffectsDataEntity());
+            this._repository.Create(this._mapper.Map<EffectsDataEntity>(effect));
         }
 
         public void Delete(int id)
@@ -34,12 +38,12 @@ namespace Service.Classes
 
         public IEnumerable<EffectsDto> GetAllEffects()
         {
-            return this._repository.GetAll().Select(e => e as EffectsDataEntity).Select(e => e.GetEffectsDto());
+            return this._repository.GetAll().Select(e => e as EffectsDataEntity).Select(e => this._mapper.Map<EffectsDto>(e));
         }
 
         public EffectsDto GetEffectById(int id)
         {
-            return (_repository.GetById(id) as EffectsDataEntity).GetEffectsDto();
+            return this.GetAllEffects().FirstOrDefault(e => e.Id == id);
         }
 
         public IEnumerable<EffectsDto> GetEffectsOrderdByNameAssending()
@@ -94,7 +98,7 @@ namespace Service.Classes
 
         public void Update(EffectsDto effect)
         {
-            this._repository.Update(effect.GetEffectsDataEntity());
+            this._repository.Update(this._mapper.Map<EffectsDataEntity>(effect));
         }
     }
 }

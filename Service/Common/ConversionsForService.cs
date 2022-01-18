@@ -1,5 +1,9 @@
 ﻿using Data.Entities;
+using Data.Entities.Forum;
+using Data.Entities.User;
 using Service.DTOs;
+using Service.DTOs.Posts;
+using Service.DTOs.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +13,7 @@ using System.Threading.Tasks;
 namespace Service.Common
 {
 
-    //more relaiable then auto-mapper
+    //more relaiable then auto-mapper?
 
     public static class ConversionsForService
     {
@@ -23,11 +27,12 @@ namespace Service.Common
                 DeletedOn = cardDto.DeletedOn,
                 Description = cardDto.Description,
                 EditedOn = cardDto.EditedOn,
-                Effects = cardDto.Effects.Select(e => e.GetEffectsDataEntity()),
                 IsDeleted = cardDto.IsDeleted,
                 IsEdited = cardDto.IsEdited,
-                Type = cardDto.CardType.GetCardTypesDataEntity(),
-                
+                Cost = cardDto.Cost,
+                CreatorId = cardDto.Creator.Id,
+                TypeId = cardDto.CardType.Id,
+                Effects = cardDto.Effects.Select(e => e.GetEffectsDataEntity()),
             };
         }
 
@@ -55,7 +60,6 @@ namespace Service.Common
                 DeletedOn = effectDto.DeletedOn,
                 Description = effectDto.Description,
                 EditedOn = effectDto.EditedOn,
-                EffectType = effectDto.EffectType.GetEffectTypesDataEntity(),
                 IsDeleted = effectDto.IsDeleted,
                 IsEdited = effectDto.IsEdited,
                 Name = effectDto.Name,
@@ -81,9 +85,7 @@ namespace Service.Common
         {
             return new()
             {
-                Cards = deckDto.Cards.Select(c => c.GetCardsDataEntity()),
                 CreatedOn = deckDto.CreatedOn,
-                DeckType = deckDto.DeckType.GetDeckTypesDataEntity(),
                 DeletedOn = deckDto.DeletedOn,
                 Description = deckDto.Description,
                 EditedOn = deckDto.EditedOn,
@@ -91,6 +93,8 @@ namespace Service.Common
                 IsDeleted = deckDto.IsDeleted,
                 IsEdited = deckDto.IsEdited,
                 Name = deckDto.Name,
+                CreatorId = deckDto.Creator.Id,
+                TypeId = deckDto.DeckType.Id
             };
         }
 
@@ -114,14 +118,14 @@ namespace Service.Common
             {
                 Id = cardsDataEntity.Id,
                 Name = cardsDataEntity.Name,
-                CardType = cardsDataEntity.Type.GetCardTypesDto(),
                 CreatedOn = cardsDataEntity.CreatedOn,
                 DeletedOn = cardsDataEntity.DeletedOn,
                 Description = cardsDataEntity.Description,
                 EditedOn = cardsDataEntity.EditedOn,
-                Effects = cardsDataEntity.Effects.Select(e => e.GetEffectsDto()),
                 IsDeleted = cardsDataEntity.IsDeleted,
                 IsEdited = cardsDataEntity.IsEdited,
+                Cost = cardsDataEntity.Cost,
+                Effects = cardsDataEntity.Effects.Select(e => e.GetEffectsDto()),
             };
         }
 
@@ -148,7 +152,6 @@ namespace Service.Common
                 DeletedOn = effectsDataEntity.DeletedOn,
                 Description = effectsDataEntity.Description,
                 EditedOn = effectsDataEntity.EditedOn,
-                EffectType = effectsDataEntity.EffectType.GetEffectTypesDto(),
                 Id = effectsDataEntity.Id,
                 IsDeleted = effectsDataEntity.IsDeleted,
                 IsEdited = effectsDataEntity.IsEdited,
@@ -175,9 +178,7 @@ namespace Service.Common
         {
             return new()
             {
-                Cards = decksDataEntity.Cards.Select(c => c.GetCardsDto()),
                 CreatedOn = decksDataEntity.CreatedOn,
-                DeckType = decksDataEntity.DeckType.GetDeckTypes(),
                 DeletedOn = decksDataEntity.DeletedOn,
                 Description = decksDataEntity.Description,
                 EditedOn = decksDataEntity.EditedOn,
@@ -188,7 +189,7 @@ namespace Service.Common
             };
         }
 
-        public static DeckTypesDto GetDeckTypes (this DeckTypesDataEntity deckTypesDataEntity)
+        public static DeckTypesDto GetDeckTypesDto (this DeckTypesDataEntity deckTypesDataEntity)
         {
             return new()
             {
@@ -201,5 +202,161 @@ namespace Service.Common
                 IsEdited = deckTypesDataEntity.IsEdited,
             };
         }
+
+        public static CategoriesDto GetCategoriesDto (this CategoriesDataEntity categoriesDataEntity)
+        {
+            return new()
+            {
+                Id = categoriesDataEntity.Id,
+                Name = categoriesDataEntity.Name,
+                CreatedOn = categoriesDataEntity.CreatedOn,
+                DeletedOn = categoriesDataEntity.DeletedOn,
+                Description = categoriesDataEntity.Description,
+                EditedOn = categoriesDataEntity.EditedOn,
+                IsDeleted = categoriesDataEntity.IsDeleted,
+                IsEdited = categoriesDataEntity.IsEdited,
+            };
+        }
+
+        public static CategoriesDataEntity GetCategoriesDataEntity (this CategoriesDto categoriesDto)
+        {
+            return new()
+            {
+                IsEdited = categoriesDto.IsEdited,
+                CreatedOn = categoriesDto.CreatedOn,
+                DeletedOn = categoriesDto.DeletedOn,
+                Description = categoriesDto.Description,
+                EditedOn = categoriesDto.EditedOn,
+                Id = categoriesDto.Id,
+                IsDeleted = categoriesDto.IsDeleted,
+                Name = categoriesDto.Name,
+            };
+        }
+
+        public static PostsDto GetPostsDto (this PostsDataEntity postsDataEntity)
+        {
+            return new()
+            {
+                Content = postsDataEntity.Content,
+                CreatedOn = postsDataEntity.CreatedOn,
+                DeletedOn = postsDataEntity.DeletedOn,
+                IsDeleted = postsDataEntity.IsDeleted,
+                Dislikes = postsDataEntity.Dislikes,
+                EditedOn = postsDataEntity.EditedOn,
+                Id = postsDataEntity.Id,
+                IsEdited = postsDataEntity.IsEdited,
+                Likes = postsDataEntity.Likes,
+                Title = postsDataEntity.Title,
+            };
+        }
+
+        public static PostsDataEntity GetPostsDataEntity (this PostsDto postsDto)
+        {
+            return new()
+            {
+                CreatedOn = postsDto.CreatedOn,
+                Title = postsDto.Title,
+                Content = postsDto.Content,
+                DeletedOn = postsDto.DeletedOn,
+                Dislikes = postsDto.Dislikes,
+                EditedOn = postsDto.EditedOn,
+                Id = postsDto.Id,
+                IsDeleted = postsDto.IsDeleted,
+                IsEdited = postsDto.IsEdited,
+                Likes = postsDto.Likes,
+                CreatorId = postsDto.Creator.Id
+            };
+        }
+
+        public static CommentsDto GetCommentsDto (this CommentsDataEntity commentsDataEntity)
+        {
+            return new()
+            {
+                Id = commentsDataEntity.Id,
+                CreatedOn = commentsDataEntity.CreatedOn,
+                Content = commentsDataEntity.Content,
+                DeletedOn = commentsDataEntity.DeletedOn,
+                Dislikes = commentsDataEntity.Dislikes,
+                EditedOn = commentsDataEntity.EditedOn,
+                IsDeleted = commentsDataEntity.IsDeleted,
+                Likes = commentsDataEntity.Likes,
+                IsEdited = commentsDataEntity.IsEdited,
+            };
+        }
+
+        public static CommentsDataEntity GetCommentsDataEntity (this CommentsDto commentsDto)
+        {
+            return new()
+            {
+                IsEdited = commentsDto.IsEdited,
+                Content = commentsDto.Content,
+                CreatedOn = commentsDto.CreatedOn,
+                DeletedOn = commentsDto.DeletedOn,
+                Dislikes = commentsDto.Dislikes,
+                EditedOn = commentsDto.EditedOn,
+                Id = commentsDto.Id,
+                IsDeleted = commentsDto.IsDeleted,
+                Likes = commentsDto.Likes,
+                CreatorId = commentsDto.Creator.Id,
+            };
+        }
+
+        public static ApplicationUser GetApplicationUser (this UserDto userDto)
+        {
+            return new()
+            {
+                CreatedOn = userDto.CreatedOn,
+                DeletedOn = userDto.DeletedOn,
+                DisplayName = userDto.DisplayName,
+                EditedOn = userDto.EditedOn,
+                Id = userDto.Id,
+                IsDeleted = userDto.IsDeleted,
+                IsEdited = userDto.IsEdited,
+                RoleId = userDto.Role.Id,
+            };
+        }
+
+        public static UserDto GetUserDto (this ApplicationUser applicationUser)
+        {
+            return new()
+            {
+                Id = applicationUser.Id,
+                CreatedOn = applicationUser.CreatedOn,
+                DeletedOn = applicationUser.DeletedOn,
+                DisplayName = applicationUser.DisplayName,
+                EditedOn = applicationUser.EditedOn,
+                IsDeleted = applicationUser.IsDeleted,
+                IsEdited = applicationUser.IsEdited,
+            };
+        }
+
+        public static ApplicationRole GetApplicationRole (this RoleDto roleDto)
+        {
+            return new(roleDto.Name)
+            {
+                Id = roleDto.Id,
+                Name = roleDto.Name,
+                CreatedOn = roleDto.CreatedOn,
+                DeletedOn = roleDto.DeletedOn,
+                EditedOn = roleDto.EditedOn,
+                IsDeleted = roleDto.IsDeleted,
+                IsEdited = roleDto.IsEdited,
+            };
+        }
+
+        public static RoleDto GetRoleDto (this ApplicationRole applicationRole)
+        {
+            return new()
+            {
+                IsEdited = applicationRole.IsEdited,
+                CreatedOn = applicationRole.CreatedOn,
+                DeletedOn = applicationRole.DeletedOn,
+                EditedOn = applicationRole.EditedOn,
+                Id = applicationRole.Id,
+                IsDeleted = applicationRole.IsDeleted,
+                Name = applicationRole.Name,
+            };
+        }
+
     }
 }

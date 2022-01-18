@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service.Interfaces
+namespace Service.Interfaces.Cards
 {
     public interface ICardsService
     {
-        public IEnumerable<CardsDto> GetAllCards ();
+        public IEnumerable<CardsDto> GetAllCards();
 
         public void Delete(string id);
 
-        public CardsDto GetCardById (string id);
+        public CardsDto GetCardById(string id);
 
         public IEnumerable<CardsDto> GetCardsOrderdByNameDessending();
 
@@ -34,6 +34,12 @@ namespace Service.Interfaces
         public IEnumerable<CardsDto> GetCardsWithTheName(string name);
 
         public IEnumerable<CardsDto> GetCardsWithEffectType(EffectTypesDto effectTypesDto);
+
+        public IEnumerable<CardsDto> GetCardsByDate(DateTime date);
+
+        public IEnumerable<CardsDto> GetCardsDescendingByDate();
+
+        public IEnumerable<CardsDto> GetCardsAscendingByDate();
 
         public void Create(CardsDto card);
 

@@ -37,5 +37,9 @@ namespace Data
 
         public DbSet<ImagesDataEntity> Images { get; init; }
 
+        public DbSet<ApplicationRole> Roles { get; init; }
+
+        public DbSet<ApplicationUser> Users { get; init; }
+
     }
 }

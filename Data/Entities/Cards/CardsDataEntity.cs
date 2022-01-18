@@ -23,10 +23,10 @@ namespace Data.Entities
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
         public string Description { get; init; }
 
-        public int Cost { get; init; }
+        public int? Cost { get; init; }
 
         [Required]
-        public string TypeId { get; init; }
+        public int TypeId { get; init; }
 
         public virtual CardTypesDataEntity Type { get; init; }
 

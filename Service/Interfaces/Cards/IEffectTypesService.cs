@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service.Interfaces
+namespace Service.Interfaces.Cards
 {
     public interface IEffectTypesService
     {

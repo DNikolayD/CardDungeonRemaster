@@ -24,7 +24,7 @@ namespace Data.Entities
         public string Description { get; init; }
 
         [Required]
-        public string TypeId { get; init; }
+        public int TypeId { get; init; }
 
         public  virtual DeckTypesDataEntity DeckType { get; init; }
 

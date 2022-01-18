@@ -1,9 +1,10 @@
-﻿using Data.Entities;
+﻿using AutoMapper;
+using Data.Entities;
 using Data.Repositories.Classes.Cards;
 using Data.Repositories.Intrefaces.Cards;
 using Service.Common;
 using Service.DTOs;
-using Service.Interfaces;
+using Service.Interfaces.Cards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace Service.Classes
     {
 
         private readonly IDeckTypesRepository _repository;
+        private readonly IMapper _mapper;
 
         public DeckTypesService(DeckTypesRepository repository)
         {
@@ -24,7 +26,7 @@ namespace Service.Classes
 
         public void Create(DeckTypesDto deckType)
         {
-            this._repository.Create(deckType.GetDeckTypesDataEntity());
+            this._repository.Create(this._mapper.Map<DeckTypesDataEntity>(deckType));
         }
 
         public void Delete(int id)
@@ -34,12 +36,12 @@ namespace Service.Classes
 
         public IEnumerable<DeckTypesDto> GetAllDeckTypes()
         {
-            return this._repository.GetAll().Select(d => d as DeckTypesDataEntity).Select(d => d.GetDeckTypes());
+            return this._repository.GetAll().Select(d => d as DeckTypesDataEntity).Select(d => this._mapper.Map<DeckTypesDto>(d));
         }
 
         public DeckTypesDto GetDeckTypeById(int id)
         {
-            return (this._repository.GetById(id) as DeckTypesDataEntity).GetDeckTypes();
+            return this.GetAllDeckTypes().FirstOrDefault(d => d.Id == id);
         }
 
         public IEnumerable<DeckTypesDto> GetDeckTypesOrderdByNameAssending()
@@ -59,7 +61,7 @@ namespace Service.Classes
 
         public void Update(DeckTypesDto deckType)
         {
-            this._repository.Update(deckType.GetDeckTypesDataEntity());
+            this._repository.Update(this._mapper.Map<DeckTypesDataEntity>(deckType));
         }
     }
 }

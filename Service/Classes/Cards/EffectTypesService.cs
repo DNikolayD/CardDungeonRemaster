@@ -1,14 +1,13 @@
-﻿using Data.Entities;
+﻿using AutoMapper;
+using Data.Entities;
 using Data.Repositories.Classes.Cards;
 using Data.Repositories.Intrefaces.Cards;
 using Service.Common;
 using Service.DTOs;
-using Service.Interfaces;
+using Service.Interfaces.Cards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service.Classes
 {
@@ -16,15 +15,18 @@ namespace Service.Classes
     {
 
         private readonly IEffectTypesRepository _repository;
+        private readonly IMapper _mapper;
 
-        public EffectTypesService(EffectTypesRepository repository)
+        public EffectTypesService(EffectTypesRepository repository,
+                                  Mapper mapper)
         {
             this._repository = repository;
+            this._mapper = mapper;
         }
 
         public void Create(EffectTypesDto effectType)
         {
-            this._repository.Create(effectType.GetEffectTypesDataEntity());
+            this._repository.Create(this._mapper.Map<EffectTypesDataEntity>(effectType));
         }
 
         public void Delete(int id)
@@ -34,12 +36,12 @@ namespace Service.Classes
 
         public IEnumerable<EffectTypesDto> GetAllEffectTypes()
         {
-            return this._repository.GetAll().Select(e => e as EffectTypesDataEntity).Select(e => e.GetEffectTypesDto());
+            return this._repository.GetAll().Select(e => e as EffectTypesDataEntity).Select(e => this._mapper.Map<EffectTypesDto>(e));
         }
 
         public EffectTypesDto GetEffectTypeById(int id)
         {
-            return (this._repository.GetById(id) as EffectTypesDataEntity).GetEffectTypesDto();
+            return this.GetAllEffectTypes().FirstOrDefault(e => e.Id == id);
         }
 
         public IEnumerable<EffectTypesDto> GetEffectTypesOrderdByNameDessending()
@@ -59,7 +61,7 @@ namespace Service.Classes
 
         public void Update(EffectTypesDto effectType)
         {
-            this._repository.Update(effectType.GetEffectTypesDataEntity());
+            this._repository.Update(this._mapper.Map<EffectTypesDataEntity>(effectType));
         }
     }
 }

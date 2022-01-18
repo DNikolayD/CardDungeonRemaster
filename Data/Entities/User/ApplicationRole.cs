@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Data.Entities.Common;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Data.Entities.User
 {
-    public class ApplicationRole : IdentityRole
+    public class ApplicationRole : IdentityRole, IBaseDataEntity<string>
     {
         public ApplicationRole(string roleName) : base(roleName)
         {

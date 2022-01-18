@@ -31,6 +31,9 @@ namespace Data.Entities.Forum
 
         public int Dislikes { get; set; }
 
+        [Required]
+        public string CreatorId { get; set; }
+
         public virtual ApplicationUser Creator { get; set; }
 
         public virtual IEnumerable<ImagesDataEntity> Images { get; set; }

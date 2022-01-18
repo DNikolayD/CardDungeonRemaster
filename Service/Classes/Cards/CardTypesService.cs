@@ -1,9 +1,10 @@
-﻿using Data.Entities;
+﻿using AutoMapper;
+using Data.Entities;
 using Data.Repositories.Classes.Cards;
 using Data.Repositories.Intrefaces.Cards;
 using Service.Common;
 using Service.DTOs;
-using Service.Interfaces;
+using Service.Interfaces.Cards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +17,19 @@ namespace Service.Classes
     {
 
         private readonly ICardTypesRepository _repository;
+        private readonly IMapper _mapper;
 
-        public CardTypesService(CardTypesRepository repository)
+        public CardTypesService(CardTypesRepository repository,
+                                Mapper mapper)
         {
             this._repository = repository;
+            this._mapper = mapper;
         }
 
         public void Create(CardTypesDto cardType)
         {
-            this._repository.Create(cardType.GetCardTypesDataEntity());
+            CardTypesDataEntity cardTypesDataEntity = this._mapper.Map<CardTypesDataEntity>(cardType);
+            this._repository.Create(cardTypesDataEntity);
         }
 
         public void Delete(int id)
@@ -34,7 +39,7 @@ namespace Service.Classes
 
         public IEnumerable<CardTypesDto> GetAllCardTypes()
         {
-            return this._repository.GetAll().Select(c => c as CardTypesDataEntity).Select(c => c.GetCardTypesDto());
+            return this._repository.GetAll().Select(c => c as CardTypesDataEntity).Select(c => this._mapper.Map<CardTypesDto>(c));
         }
 
         public CardTypesDto GetCardTypeById(int id)
@@ -59,7 +64,7 @@ namespace Service.Classes
 
         public void Update(CardTypesDto cardType)
         {
-            this._repository.Update(cardType.GetCardTypesDataEntity());
+            this._repository.Update(this._mapper.Map<CardTypesDataEntity>(cardType));
         }
     }
 }

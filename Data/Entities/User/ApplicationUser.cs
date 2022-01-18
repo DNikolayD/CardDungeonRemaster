@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Data.Entities.User
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser , IBaseDataEntity<string>
     {
 
         public ApplicationUser()

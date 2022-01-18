@@ -10,7 +10,7 @@ namespace Data.Entities.Common
             CreatedOn = DateTime.Now;
         }
 
-        public T Id { get; init; }
+        public T Id { get; set; }
 
         public DateTime CreatedOn { get; init; }
 

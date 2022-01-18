@@ -1,9 +1,13 @@
-﻿using Data.Entities;
+﻿using AutoMapper;
+using Data.Entities;
+using Data.Entities.User;
 using Data.Repositories.Classes.Cards;
+using Data.Repositories.Classes.User;
 using Data.Repositories.Intrefaces.Cards;
+using Data.Repositories.Intrefaces.User;
 using Service.Common;
 using Service.DTOs;
-using Service.Interfaces;
+using Service.Interfaces.Cards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +20,19 @@ namespace Service.Classes
     {
 
         private readonly IDecksRepository _repository;
+        private readonly IMapper _mapper;
 
-        public DecksService(DecksRepository repository)
+        public DecksService(DecksRepository repository,
+                            Mapper mapper)
         {
             this._repository = repository;
+            this._mapper = mapper;
         }
 
         public void Create(DecksDto deck)
         {
-            this._repository.Create(deck.GetDecksDataEntity());
+            DecksDataEntity decksDataEntity = this._mapper.Map<DecksDataEntity>(deck);
+            this._repository.Create(decksDataEntity);
         }
 
         public void Delete(string id)
@@ -34,12 +42,28 @@ namespace Service.Classes
 
         public IEnumerable<DecksDto> GetAllDecks()
         {
-            return this._repository.GetAll().Select(d => d as DecksDataEntity).Select(d => d.GetDecksDto());
+            IEnumerable<DecksDataEntity> decksDataEntities = this._repository.GetAll().Select(d => d as DecksDataEntity);
+            return decksDataEntities.Select(d => this._mapper.Map<DecksDto>(d));
         }
 
         public DecksDto GetDeckById(string id)
         {
-            return (this._repository.GetById(id) as DecksDataEntity).GetDecksDto();
+            return this.GetAllDecks().FirstOrDefault(x => x.Id == id);
+        }
+
+        public IEnumerable<DecksDto> GetDecksAscendingByDate()
+        {
+            return this.GetAllDecks().OrderBy(c => c.CreatedOn);
+        }
+
+        public IEnumerable<DecksDto> GetDecksByDate(DateTime date)
+        {
+            return this.GetAllDecks().Where(c => c.CreatedOn == date);
+        }
+
+        public IEnumerable<DecksDto> GetDecksDescendingByDate()
+        {
+            return this.GetAllDecks().OrderByDescending(c => c.CreatedOn);
         }
 
         public IEnumerable<DecksDto> GetDecksOrderdByCardsCountAcsending()
@@ -79,7 +103,7 @@ namespace Service.Classes
 
         public void Update(DecksDto deck)
         {
-            this._repository.Update(deck.GetDecksDataEntity());
+            this._repository.Update(this._mapper.Map<DecksDataEntity>(deck));
         }
     }
 }
